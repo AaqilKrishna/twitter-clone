@@ -1,4 +1,4 @@
-package com.socialdev.twitter_clone
+package com.example.twitter_clone
 
 import io.flutter.embedding.android.FlutterActivity
 
