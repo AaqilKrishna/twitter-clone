@@ -15,7 +15,7 @@ final userAPIProvider = Provider((ref) {
 
 abstract class IUserAPI {
   FutureEitherVoid saveUserData(UserModel userModel);
-  Future<model.Document> getUSerData(String uid);
+  Future<model.Document> getUserData(String uid);
 }
 
 class UserAPI implements IUserAPI {
@@ -46,19 +46,12 @@ class UserAPI implements IUserAPI {
     }
   }
 
+  @override
   Future<model.Document> getUserData(String uid) {
     return _db.getDocument(
       databaseId: dotenv.get('DATABASE_ID', fallback: 'DATABASE_ID not found'),
-      collectionId: dotenv.get('USERS_COLLECTION_ID', fallback: 'USERS_COLLECTION_ID not found'),
-      documentId: uid,
-    );
-  }
-  
-  @override
-  Future<model.Document> getUSerData(String uid) { 
-  return _db.getDocument(
-      databaseId: dotenv.get('DATABASE_ID', fallback: 'DATABASE_ID not found'),
-      collectionId: dotenv.get('USERS_COLLECTION_ID', fallback: 'USERS_COLLECTION_ID not found'),
+      collectionId: dotenv.get('USERS_COLLECTION_ID',
+          fallback: 'USERS_COLLECTION_ID not found'),
       documentId: uid,
     );
   }
