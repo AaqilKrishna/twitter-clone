@@ -1,10 +1,11 @@
 import 'package:appwrite/appwrite.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:appwrite/models.dart' as model;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:twitter_clone/core/core.dart';
 import 'package:twitter_clone/models/user_model.dart';
-import '../core/providers.dart';
+import 'package:twitter_clone/constants/constants.dart';
+import 'package:twitter_clone/core/providers.dart';
 
 final userAPIProvider = Provider((ref) {
   return UserAPI(
@@ -14,6 +15,7 @@ final userAPIProvider = Provider((ref) {
 
 abstract class IUserAPI {
   FutureEitherVoid saveUserData(UserModel userModel);
+  Future<model.Document> getUserData(String uid);
 }
 
 class UserAPI implements IUserAPI {
@@ -24,8 +26,8 @@ class UserAPI implements IUserAPI {
   FutureEitherVoid saveUserData(UserModel userModel) async {
     try {
       await _db.createDocument(
-        databaseId: dotenv.get('DATABASE_ID', fallback: 'DATABASE_ID not found'),
-        collectionId: dotenv.get('USERS_COLLECTION_ID', fallback: 'USERS_COLLECTION_ID not found'),
+        databaseId: AppwriteConstants.databaseId,
+        collectionId: AppwriteConstants.usersCollectionId,
         documentId: userModel.uid,
         data: userModel.toMap(),
       );
@@ -40,5 +42,14 @@ class UserAPI implements IUserAPI {
     } catch (e, stackTrace) {
       return left(Failure(e.toString(), stackTrace));
     }
+  }
+
+  @override
+  Future<model.Document> getUserData(String uid) {
+    return _db.getDocument(
+      databaseId: AppwriteConstants.databaseId,
+      collectionId: AppwriteConstants.usersCollectionId,
+      documentId: uid,
+    );
   }
 }

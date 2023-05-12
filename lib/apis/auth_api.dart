@@ -7,9 +7,7 @@ import 'package:twitter_clone/core/providers.dart';
 
 final authAPIProvider = Provider((ref) {
   final account = ref.watch(appwriteAccountProvider);
-  return AuthAPI(
-    account: account,
-  );
+  return AuthAPI(account: account);
 });
 
 abstract class IAuthAPI {

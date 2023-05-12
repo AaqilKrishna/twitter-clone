@@ -2,10 +2,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:twitter_clone/apis/auth_api.dart';
 import 'package:twitter_clone/apis/user_api.dart';
-import 'package:twitter_clone/features/auth/view/home_view.dart';
+import 'package:twitter_clone/features/home/views/home_view.dart';
 import 'package:twitter_clone/features/auth/view/login_view.dart';
 import 'package:twitter_clone/models/user_model.dart';
-import '../../../core/utils.dart';
+import 'package:twitter_clone/core/utils.dart';
 import 'package:appwrite/models.dart' as model;
 
 final authControllerProvider =
@@ -14,6 +14,17 @@ final authControllerProvider =
     authAPI: ref.watch(authAPIProvider),
     userAPI: ref.watch(userAPIProvider),
   );
+});
+
+final currentUserDetailsProvider = FutureProvider((ref) {
+  final currentUserId = ref.watch(currentUserAccountProvider).value!.$id;
+  final userDetails = ref.watch(userDetailsProvider(currentUserId));
+  return userDetails.value;
+});
+
+final userDetailsProvider = FutureProvider.family((ref, String uid) {
+  final authController = ref.watch(authControllerProvider.notifier);
+  return authController.getUserData(uid);
 });
 
 final currentUserAccountProvider = FutureProvider((ref) {
@@ -84,5 +95,11 @@ class AuthController extends StateNotifier<bool> {
         Navigator.push(context, HomeView.route());
       },
     );
+  }
+
+  Future<UserModel> getUserData(String uid) async {
+    final document = await _userAPI.getUserData(uid);
+    final updatedUser = UserModel.fromMap(document.data);
+    return updatedUser;
   }
 }
