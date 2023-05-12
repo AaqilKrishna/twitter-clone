@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../constants/assets_constants.dart';
 import '../../../constants/ui_constants.dart';
 import '../../../theme/palette.dart';
-import '../tweet/views/create_tweet_view.dart';
+import '../../tweet/views/create_tweet_view.dart';
 
 class HomeView extends StatefulWidget {
   static route() => MaterialPageRoute(
@@ -34,7 +33,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar,
+      appBar: _page == 0 ? appBar : null,
       body: IndexedStack(
         index: _page,
         children: UIConstants.bottomTabBarPages,
@@ -57,14 +56,12 @@ class _HomeViewState extends State<HomeView> {
               _page == 0
                   ? AssetsConstants.homeFilledIcon
                   : AssetsConstants.homeOutlinedIcon,
-              // ignore: deprecated_member_use
               color: Palette.whiteColor,
             ),
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               AssetsConstants.searchIcon,
-              // ignore: deprecated_member_use
               color: Palette.whiteColor,
             ),
           ),
@@ -73,7 +70,6 @@ class _HomeViewState extends State<HomeView> {
               _page == 2
                   ? AssetsConstants.notifFilledIcon
                   : AssetsConstants.notifOutlinedIcon,
-              // ignore: deprecated_member_use
               color: Palette.whiteColor,
             ),
           ),

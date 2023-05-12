@@ -4,7 +4,6 @@ import 'package:twitter_clone/theme/theme.dart';
 class AuthField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
-
   const AuthField({
     super.key,
     required this.controller,
