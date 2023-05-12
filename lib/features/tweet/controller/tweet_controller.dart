@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../apis/storage_api.dart';
-import '../../../apis/tweet_api.dart';
-import '../../../core/enums/tweet_type_enum.dart';
-import '../../../core/utils.dart';
-import '../../../models/tweet_model.dart';
-import '../../auth/controller/auth_controller.dart';
+import 'package:twitter_clone/apis/storage_api.dart';
+import 'package:twitter_clone/apis/tweet_api.dart';
+import 'package:twitter_clone/core/enums/tweet_type_enum.dart';
+import 'package:twitter_clone/core/utils.dart';
+import 'package:twitter_clone/models/tweet_model.dart';
+import 'package:twitter_clone/features/auth/controller/auth_controller.dart';
 
 final tweetControllerProvider = StateNotifierProvider<TweetController, bool>(
   (ref) {

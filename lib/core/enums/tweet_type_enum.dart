@@ -6,7 +6,6 @@ enum TweetType {
   const TweetType(this.type);
 }
 
-
 extension ConvertTweet on String {
   TweetType toTweetTypeEnum() {
     switch (this) {

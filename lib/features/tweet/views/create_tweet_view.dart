@@ -6,11 +6,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:twitter_clone/common/loading_page.dart';
 import 'package:twitter_clone/features/auth/controller/auth_controller.dart';
-import '../../../common/rounded_small_button.dart';
-import '../../../constants/assets_constants.dart';
-import '../../../core/utils.dart';
-import '../../../theme/palette.dart';
-import '../controller/tweet_controller.dart';
+import 'package:twitter_clone/common/rounded_small_button.dart';
+import 'package:twitter_clone/constants/assets_constants.dart';
+import 'package:twitter_clone/core/utils.dart';
+import 'package:twitter_clone/theme/palette.dart';
+import 'package:twitter_clone/features/tweet/controller/tweet_controller.dart';
 
 class CreateTweetScreen extends ConsumerStatefulWidget {
   static route() => MaterialPageRoute(
@@ -101,23 +101,23 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
                     ],
                   ),
                   if (images.isNotEmpty)
-                      CarouselSlider(
-                        items: images.map(
-                          (file) {
-                            return Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 5,
-                              ),
-                              child: Image.file(file),
-                            );
-                          },
-                        ).toList(),
-                        options: CarouselOptions(
-                          height: 400,
-                          enableInfiniteScroll: false,
-                        ),
+                    CarouselSlider(
+                      items: images.map(
+                        (file) {
+                          return Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 5,
+                            ),
+                            child: Image.file(file),
+                          );
+                        },
+                      ).toList(),
+                      options: CarouselOptions(
+                        height: 400,
+                        enableInfiniteScroll: false,
                       ),
+                    ),
                 ]),
               ),
             ),

@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:twitter_clone/core/providers.dart';
-import '../constants/appwrite_constants.dart';
+import 'package:twitter_clone/constants/constants.dart';
 
 final storageAPIProvider = Provider((ref) {
   return StorageAPI(
@@ -20,7 +20,7 @@ class StorageAPI {
       final uploadedImage = await _storage.createFile(
         bucketId: AppwriteConstants.imagesBucket,
         fileId: ID.unique(),
-        file: InputFile(path: file.path),
+        file: InputFile.fromPath(path: file.path),
       );
       imageLinks.add(
         AppwriteConstants.imageUrl(uploadedImage.$id),

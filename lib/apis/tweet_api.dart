@@ -1,12 +1,12 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
-import '../core/failure.dart';
-import '../core/providers.dart';
-import '../core/type_defs.dart';
-import '../models/tweet_model.dart';
+import 'package:twitter_clone/constants/constants.dart';
+import 'package:twitter_clone/core/failure.dart';
+import 'package:twitter_clone/core/providers.dart';
+import 'package:twitter_clone/core/type_defs.dart';
+import 'package:twitter_clone/models/tweet_model.dart';
 
 final tweetAPIProvider = Provider((ref) {
   return TweetAPI(
@@ -26,10 +26,8 @@ class TweetAPI implements ITweetAPI {
   FutureEither<Document> shareTweet(Tweet tweet) async {
     try {
       final document = await _db.createDocument(
-        databaseId:
-            dotenv.get('DATABASE_ID', fallback: 'DATABASE_ID not found'),
-        collectionId: dotenv.get('TWEETS_COLLECTION_ID',
-            fallback: 'USERS_COLLECTION_ID not found'),
+        databaseId: AppwriteConstants.databaseId,
+        collectionId: AppwriteConstants.tweetsCollectionId,
         documentId: ID.unique(),
         data: tweet.toMap(),
       );

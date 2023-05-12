@@ -5,7 +5,7 @@ import 'package:twitter_clone/apis/user_api.dart';
 import 'package:twitter_clone/features/home/views/home_view.dart';
 import 'package:twitter_clone/features/auth/view/login_view.dart';
 import 'package:twitter_clone/models/user_model.dart';
-import '../../../core/utils.dart';
+import 'package:twitter_clone/core/utils.dart';
 import 'package:appwrite/models.dart' as model;
 
 final authControllerProvider =

@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../constants/assets_constants.dart';
-import '../../../constants/ui_constants.dart';
-import '../../../theme/palette.dart';
-import '../../tweet/views/create_tweet_view.dart';
+import 'package:twitter_clone/constants/assets_constants.dart';
+import 'package:twitter_clone/constants/ui_constants.dart';
+import 'package:twitter_clone/theme/palette.dart';
+import 'package:twitter_clone/features/tweet/views/create_tweet_view.dart';
 
 class HomeView extends StatefulWidget {
   static route() => MaterialPageRoute(
@@ -56,13 +56,15 @@ class _HomeViewState extends State<HomeView> {
               _page == 0
                   ? AssetsConstants.homeFilledIcon
                   : AssetsConstants.homeOutlinedIcon,
-              color: Palette.whiteColor,
+              colorFilter:
+                  const ColorFilter.mode(Palette.whiteColor, BlendMode.srcIn),
             ),
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               AssetsConstants.searchIcon,
-              color: Palette.whiteColor,
+              colorFilter:
+                  const ColorFilter.mode(Palette.whiteColor, BlendMode.srcIn),
             ),
           ),
           BottomNavigationBarItem(
@@ -70,7 +72,8 @@ class _HomeViewState extends State<HomeView> {
               _page == 2
                   ? AssetsConstants.notifFilledIcon
                   : AssetsConstants.notifOutlinedIcon,
-              color: Palette.whiteColor,
+              colorFilter:
+                  const ColorFilter.mode(Palette.whiteColor, BlendMode.srcIn),
             ),
           ),
         ],
