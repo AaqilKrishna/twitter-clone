@@ -58,7 +58,8 @@ class TweetCard extends ConsumerWidget {
                                     children: [
                                       SvgPicture.asset(
                                         AssetsConstants.retweetIcon,
-                                        color: Palette.greyColor,
+                                        colorFilter: const ColorFilter.mode(
+                                            Palette.greyColor, BlendMode.srcIn),
                                         height: 20,
                                       ),
                                       const SizedBox(width: 2),
@@ -197,12 +198,18 @@ class TweetCard extends ConsumerWidget {
                                               ? SvgPicture.asset(
                                                   AssetsConstants
                                                       .likeFilledIcon,
-                                                  color: Palette.redColor,
+                                                  colorFilter:
+                                                      const ColorFilter.mode(
+                                                          Palette.redColor,
+                                                          BlendMode.srcIn),
                                                 )
                                               : SvgPicture.asset(
                                                   AssetsConstants
                                                       .likeOutlinedIcon,
-                                                  color: Palette.greyColor,
+                                                  colorFilter:
+                                                      const ColorFilter.mode(
+                                                          Palette.greyColor,
+                                                          BlendMode.srcIn),
                                                 );
                                         },
                                         likeCount: tweet.likes.length,
