@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:twitter_clone/common/common.dart';
 import 'package:twitter_clone/features/auth/controller/auth_controller.dart';
 import 'package:twitter_clone/features/user_profile/controller/user_profile_controller.dart';
+import 'package:twitter_clone/features/user_profile/view/edit_profile_view.dart';
 import 'package:twitter_clone/features/user_profile/widget/follow_count.dart';
 import 'package:twitter_clone/models/user_model.dart';
 import 'package:twitter_clone/theme/palette.dart';
@@ -35,7 +36,10 @@ class UserProfile extends ConsumerWidget {
                             ? Container(
                                 color: Palette.blueColor,
                               )
-                            : Image.network(user.bannerPic),
+                            : Image.network(
+                              user.bannerPic, 
+                              fit: BoxFit.fitWidth,
+                              ),
                       ),
                       Positioned(
                         bottom: 0,
@@ -48,7 +52,11 @@ class UserProfile extends ConsumerWidget {
                         alignment: Alignment.bottomRight,
                         margin: const EdgeInsets.all(20),
                         child: OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (currentUser.uid == user.uid) {
+                              Navigator.push(context, EditProfileView.route());
+                            }
+                          },
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
@@ -72,64 +80,71 @@ class UserProfile extends ConsumerWidget {
                 SliverPadding(
                   padding: const EdgeInsets.all(8),
                   sliver: SliverList(
-                    delegate: SliverChildListDelegate([
-                      Text(
-                        user.name,
-                        style: const TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
+                    delegate: SliverChildListDelegate(
+                      [
+                        Text(
+                          user.name,
+                          style: const TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      Text(
-                        '@${user.name}',
-                        style: const TextStyle(
-                          fontSize: 17,
-                          color: Palette.greyColor,
+                        Text(
+                          '@${user.name}',
+                          style: const TextStyle(
+                            fontSize: 17,
+                            color: Palette.greyColor,
+                          ),
                         ),
-                      ),
-                      Text(
-                        user.bio,
-                        style: const TextStyle(
-                          fontSize: 17,
+                        Text(
+                          user.bio,
+                          style: const TextStyle(
+                            fontSize: 17,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          FollowCount(
-                            count: user.following.length, 
-                            text: 'Following',
-                            ),
-                            const SizedBox(width: 15,),
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
                             FollowCount(
-                            count: user.followers.length, 
-                            text: 'Followers',
+                              count: user.following.length,
+                              text: 'Following',
                             ),
-                        ],
-                      ),
-                      const SizedBox(height: 2,),
-                      const Divider(
-                        color: Palette.whiteColor,
-                      ),
-                    ],
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            FollowCount(
+                              count: user.followers.length,
+                              text: 'Followers',
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 2,
+                        ),
+                        const Divider(
+                          color: Palette.whiteColor,
+                        ),
+                      ],
                     ),
                   ),
-                )
+                ),
               ];
             },
             body: ref.watch(getUserTweetsProvider(user.uid)).when(
-              data: (tweets) {
-                return ListView.builder(
+                  data: (tweets) {
+                    return ListView.builder(
                       itemCount: tweets.length,
                       itemBuilder: (BuildContext context, int index) {
                         final tweet = tweets[index];
                         return TweetCard(tweet: tweet);
                       },
                     );
-              }, 
-              error: (error,st) => ErrorText(error: error.toString(),), 
-              loading: () => const Loader(),
-              ),
+                  },
+                  error: (error, st) => ErrorText(
+                    error: error.toString(),
+                  ),
+                  loading: () => const Loader(),
+                ),
           );
   }
 }
