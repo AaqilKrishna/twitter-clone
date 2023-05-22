@@ -75,7 +75,7 @@ class UserProfile extends ConsumerWidget {
                           child: Text(
                             currentUser.uid == user.uid
                                 ? 'Edit profile'
-                                : currentUser.following.contains(user.uid) 
+                                : currentUser.following.contains(user.uid)
                                     ? 'Unfollow'
                                     : 'Follow',
                             style: const TextStyle(

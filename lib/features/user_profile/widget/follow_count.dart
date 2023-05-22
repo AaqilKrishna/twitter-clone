@@ -4,7 +4,11 @@ import 'package:twitter_clone/theme/palette.dart';
 class FollowCount extends StatelessWidget {
   final int count;
   final String text;
-  const FollowCount({super.key, required this.count, required this.text});
+  const FollowCount({
+    Key? key,
+    required this.count,
+    required this.text,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -109,10 +109,10 @@ class Tweet {
   }
 
   @override
-  bool operator ==(covariant Tweet other) {
+  bool operator == (Object other) {
     if (identical(this, other)) return true;
 
-    return other.text == text &&
+    return other is Tweet && other.text == text &&
         listEquals(other.hashtags, hashtags) &&
         other.link == link &&
         listEquals(other.imageLinks, imageLinks) &&

@@ -73,7 +73,8 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
         actions: [
           TextButton(
             onPressed: () {
-              ref.read(userProfileControllerProvider.notifier)
+              ref
+                  .read(userProfileControllerProvider.notifier)
                   .updateUserProfile(
                     userModel: user!.copyWith(
                       bio: bioController.text,
@@ -91,7 +92,7 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
       body: isLoading || user == null
           ? const Loader()
           : SingleChildScrollView(
-            child: Column(
+              child: Column(
                 children: [
                   SizedBox(
                     height: 170,
@@ -158,7 +159,7 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
                   ),
                 ],
               ),
-          ),
+            ),
     );
   }
 }
