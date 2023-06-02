@@ -17,7 +17,6 @@ class Tweet {
   final int reshareCount;
   final String retweetedBy;
   final String repliedTo;
-
   const Tweet({
     required this.text,
     required this.hashtags,
@@ -109,10 +108,11 @@ class Tweet {
   }
 
   @override
-  bool operator == (Object other) {
+  bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Tweet && other.text == text &&
+    return other is Tweet &&
+        other.text == text &&
         listEquals(other.hashtags, hashtags) &&
         other.link == link &&
         listEquals(other.imageLinks, imageLinks) &&

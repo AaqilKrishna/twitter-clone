@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:twitter_clone/theme/theme.dart';
+import 'package:twitter_clone/theme/pallete.dart';
 
 class AuthField extends StatelessWidget {
   final TextEditingController controller;
@@ -18,14 +18,14 @@ class AuthField extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
           borderSide: const BorderSide(
-            color: Palette.blueColor,
+            color: Pallete.blueColor,
             width: 3,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
           borderSide: const BorderSide(
-            color: Palette.greyColor,
+            color: Pallete.greyColor,
           ),
         ),
         contentPadding: const EdgeInsets.all(22),

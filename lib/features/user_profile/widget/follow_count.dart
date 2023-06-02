@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:twitter_clone/theme/palette.dart';
+import 'package:twitter_clone/theme/pallete.dart';
 
 class FollowCount extends StatelessWidget {
   final int count;
@@ -13,12 +13,13 @@ class FollowCount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double fontSize = 18;
+
     return Row(
       children: [
         Text(
           '$count',
           style: TextStyle(
-            color: Palette.whiteColor,
+            color: Pallete.whiteColor,
             fontSize: fontSize,
             fontWeight: FontWeight.bold,
           ),
@@ -27,7 +28,7 @@ class FollowCount extends StatelessWidget {
         Text(
           text,
           style: TextStyle(
-            color: Palette.greyColor,
+            color: Pallete.greyColor,
             fontSize: fontSize,
           ),
         ),

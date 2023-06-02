@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:twitter_clone/common/common.dart';
+import 'package:twitter_clone/common/error_page.dart';
+import 'package:twitter_clone/common/loading_page.dart';
 import 'package:twitter_clone/constants/appwrite_constants.dart';
 import 'package:twitter_clone/features/tweet/controller/tweet_controller.dart';
 import 'package:twitter_clone/features/tweet/widgets/tweet_card.dart';
@@ -16,16 +17,15 @@ class TweetList extends ConsumerWidget {
             return ref.watch(getLatestTweetProvider).when(
                   data: (data) {
                     if (data.events.contains(
-                      'databases.*.collections.${AppwriteConstants.tweetsCollectionId}.documents.*.create',
+                      'databases.*.collections.${AppwriteConstants.tweetsCollection}.documents.*.create',
                     )) {
                       tweets.insert(0, Tweet.fromMap(data.payload));
                     } else if (data.events.contains(
-                      'databases.*.collections.${AppwriteConstants.tweetsCollectionId}.documents.*.update',
+                      'databases.*.collections.${AppwriteConstants.tweetsCollection}.documents.*.update',
                     )) {
-                      //get id of original tweet
+                      // get id of original tweet
                       final startingPoint =
                           data.events[0].lastIndexOf('documents.');
-
                       final endPoint = data.events[0].lastIndexOf('.update');
                       final tweetId = data.events[0]
                           .substring(startingPoint + 10, endPoint);

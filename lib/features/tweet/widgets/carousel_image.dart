@@ -14,6 +14,7 @@ class CarouselImage extends StatefulWidget {
 
 class _CarouselImageState extends State<CarouselImage> {
   int _current = 0;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -28,7 +29,7 @@ class _CarouselImageState extends State<CarouselImage> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25),
                     ),
-                    margin: const EdgeInsets.all(25),
+                    margin: const EdgeInsets.all(10),
                     child: Image.network(
                       link,
                       fit: BoxFit.contain,
@@ -40,11 +41,9 @@ class _CarouselImageState extends State<CarouselImage> {
                 viewportFraction: 1,
                 enableInfiniteScroll: false,
                 onPageChanged: (index, reason) {
-                  setState(
-                    () {
-                      _current = index;
-                    },
-                  );
+                  setState(() {
+                    _current = index;
+                  });
                 },
               ),
             ),

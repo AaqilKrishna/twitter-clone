@@ -44,16 +44,15 @@ class TwitterReplyScreen extends ConsumerWidget {
                           if (!isTweetAlreadyPresent &&
                               latestTweet.repliedTo == tweet.id) {
                             if (data.events.contains(
-                              'databases.*.collections.${AppwriteConstants.tweetsCollectionId}.documents.*.create',
+                              'databases.*.collections.${AppwriteConstants.tweetsCollection}.documents.*.create',
                             )) {
                               tweets.insert(0, Tweet.fromMap(data.payload));
                             } else if (data.events.contains(
-                              'databases.*.collections.${AppwriteConstants.tweetsCollectionId}.documents.*.update',
+                              'databases.*.collections.${AppwriteConstants.tweetsCollection}.documents.*.update',
                             )) {
-                              //get id of original tweet
+                              // get id of original tweet
                               final startingPoint =
                                   data.events[0].lastIndexOf('documents.');
-
                               final endPoint =
                                   data.events[0].lastIndexOf('.update');
                               final tweetId = data.events[0]
@@ -108,11 +107,12 @@ class TwitterReplyScreen extends ConsumerWidget {
       bottomNavigationBar: TextField(
         onSubmitted: (value) {
           ref.read(tweetControllerProvider.notifier).shareTweet(
-              images: [],
-              text: value,
-              context: context,
-              repliedTo: tweet.id,
-              repliedToUserId: tweet.uid);
+            images: [],
+            text: value,
+            context: context,
+            repliedTo: tweet.id,
+            repliedToUserId: tweet.uid,
+          );
         },
         decoration: const InputDecoration(
           hintText: 'Tweet your reply',

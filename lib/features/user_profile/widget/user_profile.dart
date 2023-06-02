@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:twitter_clone/common/common.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:twitter_clone/common/error_page.dart';
+import 'package:twitter_clone/common/loading_page.dart';
+import 'package:twitter_clone/constants/constants.dart';
 import 'package:twitter_clone/features/auth/controller/auth_controller.dart';
+import 'package:twitter_clone/features/tweet/widgets/tweet_card.dart';
 import 'package:twitter_clone/features/user_profile/controller/user_profile_controller.dart';
 import 'package:twitter_clone/features/user_profile/view/edit_profile_view.dart';
 import 'package:twitter_clone/features/user_profile/widget/follow_count.dart';
 import 'package:twitter_clone/models/user_model.dart';
-import 'package:twitter_clone/theme/palette.dart';
-
-import '../../tweet/widgets/tweet_card.dart';
+import 'package:twitter_clone/theme/pallete.dart';
 
 class UserProfile extends ConsumerWidget {
   final UserModel user;
@@ -20,6 +22,7 @@ class UserProfile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentUser = ref.watch(currentUserDetailsProvider).value;
+
     return currentUser == null
         ? const Loader()
         : NestedScrollView(
@@ -34,7 +37,7 @@ class UserProfile extends ConsumerWidget {
                       Positioned.fill(
                         child: user.bannerPic.isEmpty
                             ? Container(
-                                color: Palette.blueColor,
+                                color: Pallete.blueColor,
                               )
                             : Image.network(
                                 user.bannerPic,
@@ -54,6 +57,7 @@ class UserProfile extends ConsumerWidget {
                         child: OutlinedButton(
                           onPressed: () {
                             if (currentUser.uid == user.uid) {
+                              // edit profile
                               Navigator.push(context, EditProfileView.route());
                             } else {
                               ref
@@ -68,18 +72,20 @@ class UserProfile extends ConsumerWidget {
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
-                              side: const BorderSide(color: Palette.whiteColor),
+                              side: const BorderSide(
+                                color: Pallete.whiteColor,
+                              ),
                             ),
                             padding: const EdgeInsets.symmetric(horizontal: 25),
                           ),
                           child: Text(
                             currentUser.uid == user.uid
-                                ? 'Edit profile'
+                                ? 'Edit Profile'
                                 : currentUser.following.contains(user.uid)
                                     ? 'Unfollow'
                                     : 'Follow',
                             style: const TextStyle(
-                              color: Palette.whiteColor,
+                              color: Pallete.whiteColor,
                             ),
                           ),
                         ),
@@ -92,18 +98,29 @@ class UserProfile extends ConsumerWidget {
                   sliver: SliverList(
                     delegate: SliverChildListDelegate(
                       [
-                        Text(
-                          user.name,
-                          style: const TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        Row(
+                          children: [
+                            Text(
+                              user.name,
+                              style: const TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            if (user.isTwitterBlue)
+                              Padding(
+                                padding: const EdgeInsets.only(left: 3.0),
+                                child: SvgPicture.asset(
+                                  AssetsConstants.verifiedIcon,
+                                ),
+                              ),
+                          ],
                         ),
                         Text(
                           '@${user.name}',
                           style: const TextStyle(
                             fontSize: 17,
-                            color: Palette.greyColor,
+                            color: Pallete.greyColor,
                           ),
                         ),
                         Text(
@@ -119,21 +136,15 @@ class UserProfile extends ConsumerWidget {
                               count: user.following.length,
                               text: 'Following',
                             ),
-                            const SizedBox(
-                              width: 15,
-                            ),
+                            const SizedBox(width: 15),
                             FollowCount(
                               count: user.followers.length,
                               text: 'Followers',
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 2,
-                        ),
-                        const Divider(
-                          color: Palette.whiteColor,
-                        ),
+                        const SizedBox(height: 2),
+                        const Divider(color: Pallete.whiteColor),
                       ],
                     ),
                   ),
@@ -142,6 +153,8 @@ class UserProfile extends ConsumerWidget {
             },
             body: ref.watch(getUserTweetsProvider(user.uid)).when(
                   data: (tweets) {
+                    // can make it realtime by copying code
+                    // from twitter_reply_view
                     return ListView.builder(
                       itemCount: tweets.length,
                       itemBuilder: (BuildContext context, int index) {
