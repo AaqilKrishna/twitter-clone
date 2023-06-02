@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:twitter_clone/common/common.dart';
+import 'package:twitter_clone/common/error_page.dart';
+import 'package:twitter_clone/common/loading_page.dart';
 import 'package:twitter_clone/features/explore/controller/explore_controller.dart';
 import 'package:twitter_clone/features/explore/widgets/search_tile.dart';
-import 'package:twitter_clone/theme/palette.dart';
+import 'package:twitter_clone/theme/pallete.dart';
 
 class ExploreView extends ConsumerStatefulWidget {
   const ExploreView({super.key});
@@ -15,6 +16,7 @@ class ExploreView extends ConsumerStatefulWidget {
 class _ExploreViewState extends ConsumerState<ExploreView> {
   final searchController = TextEditingController();
   bool isShowUsers = false;
+
   @override
   void dispose() {
     super.dispose();
@@ -26,7 +28,7 @@ class _ExploreViewState extends ConsumerState<ExploreView> {
     final appBarTextFieldBorder = OutlineInputBorder(
       borderRadius: BorderRadius.circular(50),
       borderSide: const BorderSide(
-        color: Palette.searchBarColor,
+        color: Pallete.searchBarColor,
       ),
     );
     return Scaffold(
@@ -44,7 +46,7 @@ class _ExploreViewState extends ConsumerState<ExploreView> {
               contentPadding: const EdgeInsets.all(10).copyWith(
                 left: 20,
               ),
-              fillColor: Palette.searchBarColor,
+              fillColor: Pallete.searchBarColor,
               filled: true,
               enabledBorder: appBarTextFieldBorder,
               focusedBorder: appBarTextFieldBorder,

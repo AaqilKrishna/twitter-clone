@@ -5,18 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:twitter_clone/common/loading_page.dart';
-import 'package:twitter_clone/features/auth/controller/auth_controller.dart';
 import 'package:twitter_clone/common/rounded_small_button.dart';
 import 'package:twitter_clone/constants/assets_constants.dart';
 import 'package:twitter_clone/core/utils.dart';
-import 'package:twitter_clone/theme/palette.dart';
+import 'package:twitter_clone/features/auth/controller/auth_controller.dart';
 import 'package:twitter_clone/features/tweet/controller/tweet_controller.dart';
+import 'package:twitter_clone/theme/pallete.dart';
 
 class CreateTweetScreen extends ConsumerStatefulWidget {
   static route() => MaterialPageRoute(
         builder: (context) => const CreateTweetScreen(),
       );
   const CreateTweetScreen({super.key});
+
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _CreateTweetScreenState();
@@ -25,6 +26,7 @@ class CreateTweetScreen extends ConsumerStatefulWidget {
 class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
   final tweetTextController = TextEditingController();
   List<File> images = [];
+
   @override
   void dispose() {
     super.dispose();
@@ -51,6 +53,7 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
   Widget build(BuildContext context) {
     final currentUser = ref.watch(currentUserDetailsProvider).value;
     final isLoading = ref.watch(tweetControllerProvider);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -63,8 +66,8 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
           RoundedSmallButton(
             onTap: shareTweet,
             label: 'Tweet',
-            backgroundColor: Palette.blueColor,
-            textColor: Palette.whiteColor,
+            backgroundColor: Pallete.blueColor,
+            textColor: Pallete.whiteColor,
           ),
         ],
       ),
@@ -72,53 +75,55 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
           ? const Loader()
           : SafeArea(
               child: SingleChildScrollView(
-                child: Column(children: [
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        backgroundImage: NetworkImage(currentUser.profilePic),
-                        radius: 30,
-                      ),
-                      const SizedBox(width: 15),
-                      Expanded(
-                        child: TextField(
-                          controller: tweetTextController,
-                          style: const TextStyle(
-                            fontSize: 22,
-                          ),
-                          decoration: const InputDecoration(
-                            hintText: "What's happening?",
-                            hintStyle: TextStyle(
-                              color: Palette.greyColor,
-                              fontSize: 22,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            border: InputBorder.none,
-                          ),
-                          maxLines: null,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: NetworkImage(currentUser.profilePic),
+                          radius: 30,
                         ),
-                      )
-                    ],
-                  ),
-                  if (images.isNotEmpty)
-                    CarouselSlider(
-                      items: images.map(
-                        (file) {
-                          return Container(
-                            width: MediaQuery.of(context).size.width,
-                            margin: const EdgeInsets.symmetric(
-                              horizontal: 5,
+                        const SizedBox(width: 15),
+                        Expanded(
+                          child: TextField(
+                            controller: tweetTextController,
+                            style: const TextStyle(
+                              fontSize: 22,
                             ),
-                            child: Image.file(file),
-                          );
-                        },
-                      ).toList(),
-                      options: CarouselOptions(
-                        height: 400,
-                        enableInfiniteScroll: false,
-                      ),
+                            decoration: const InputDecoration(
+                              hintText: "What's happening?",
+                              hintStyle: TextStyle(
+                                color: Pallete.greyColor,
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              border: InputBorder.none,
+                            ),
+                            maxLines: null,
+                          ),
+                        ),
+                      ],
                     ),
-                ]),
+                    if (images.isNotEmpty)
+                      CarouselSlider(
+                        items: images.map(
+                          (file) {
+                            return Container(
+                              width: MediaQuery.of(context).size.width,
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 5,
+                              ),
+                              child: Image.file(file),
+                            );
+                          },
+                        ).toList(),
+                        options: CarouselOptions(
+                          height: 400,
+                          enableInfiniteScroll: false,
+                        ),
+                      ),
+                  ],
+                ),
               ),
             ),
       bottomNavigationBar: Container(
@@ -126,7 +131,7 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
         decoration: const BoxDecoration(
           border: Border(
             top: BorderSide(
-              color: Palette.greyColor,
+              color: Pallete.greyColor,
               width: 0.3,
             ),
           ),

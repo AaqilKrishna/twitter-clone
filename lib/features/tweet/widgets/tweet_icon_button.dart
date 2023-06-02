@@ -1,7 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:twitter_clone/theme/palette.dart';
+import 'package:twitter_clone/theme/pallete.dart';
 
 class TweetIconButton extends StatelessWidget {
   final String pathName;
@@ -22,8 +21,7 @@ class TweetIconButton extends StatelessWidget {
         children: [
           SvgPicture.asset(
             pathName,
-            colorFilter:
-                const ColorFilter.mode(Palette.greyColor, BlendMode.srcIn),
+            color: Pallete.greyColor,
           ),
           Container(
             margin: const EdgeInsets.all(6),

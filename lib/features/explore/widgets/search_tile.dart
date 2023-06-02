@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:twitter_clone/features/user_profile/view/user_profile_view.dart';
 import 'package:twitter_clone/models/user_model.dart';
-import 'package:twitter_clone/theme/theme.dart';
+import 'package:twitter_clone/theme/pallete.dart';
 
 class SearchTile extends StatelessWidget {
   final UserModel userModel;
@@ -42,7 +42,7 @@ class SearchTile extends StatelessWidget {
           Text(
             userModel.bio,
             style: const TextStyle(
-              color: Palette.whiteColor,
+              color: Pallete.whiteColor,
             ),
           ),
         ],

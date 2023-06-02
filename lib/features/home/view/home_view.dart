@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:twitter_clone/constants/assets_constants.dart';
-import 'package:twitter_clone/constants/ui_constants.dart';
-import 'package:twitter_clone/theme/palette.dart';
+import 'package:twitter_clone/constants/constants.dart';
+import 'package:twitter_clone/features/home/widgets/side_drawer.dart';
 import 'package:twitter_clone/features/tweet/views/create_tweet_view.dart';
+import 'package:twitter_clone/theme/pallete.dart';
 
 class HomeView extends StatefulWidget {
   static route() => MaterialPageRoute(
@@ -42,29 +42,28 @@ class _HomeViewState extends State<HomeView> {
         onPressed: onCreateTweet,
         child: const Icon(
           Icons.add,
-          color: Palette.whiteColor,
+          color: Pallete.whiteColor,
           size: 28,
         ),
       ),
+      drawer: const SideDrawer(),
       bottomNavigationBar: CupertinoTabBar(
         currentIndex: _page,
         onTap: onPageChange,
-        backgroundColor: Palette.backgroundColor,
+        backgroundColor: Pallete.backgroundColor,
         items: [
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               _page == 0
                   ? AssetsConstants.homeFilledIcon
                   : AssetsConstants.homeOutlinedIcon,
-              colorFilter:
-                  const ColorFilter.mode(Palette.whiteColor, BlendMode.srcIn),
+              color: Pallete.whiteColor,
             ),
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               AssetsConstants.searchIcon,
-              colorFilter:
-                  const ColorFilter.mode(Palette.whiteColor, BlendMode.srcIn),
+              color: Pallete.whiteColor,
             ),
           ),
           BottomNavigationBarItem(
@@ -72,8 +71,7 @@ class _HomeViewState extends State<HomeView> {
               _page == 2
                   ? AssetsConstants.notifFilledIcon
                   : AssetsConstants.notifOutlinedIcon,
-              colorFilter:
-                  const ColorFilter.mode(Palette.whiteColor, BlendMode.srcIn),
+              color: Pallete.whiteColor,
             ),
           ),
         ],

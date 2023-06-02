@@ -1,5 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:twitter_clone/theme/theme.dart';
+import 'package:twitter_clone/features/tweet/views/hashtag_view.dart';
+import 'package:twitter_clone/theme/pallete.dart';
 
 class HashtagText extends StatelessWidget {
   final String text;
@@ -18,10 +20,17 @@ class HashtagText extends StatelessWidget {
           TextSpan(
             text: '$element ',
             style: const TextStyle(
-              color: Palette.blueColor,
+              color: Pallete.blueColor,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                Navigator.push(
+                  context,
+                  HashtagView.route(element),
+                );
+              },
           ),
         );
       } else if (element.startsWith('www.') || element.startsWith('https://')) {
@@ -29,7 +38,7 @@ class HashtagText extends StatelessWidget {
           TextSpan(
             text: '$element ',
             style: const TextStyle(
-              color: Palette.blueColor,
+              color: Pallete.blueColor,
               fontSize: 18,
             ),
           ),
