@@ -24,7 +24,7 @@ Source Code for Full Stack Twitter App - Works on Android & iOS!
 
 ## Installation
 After cloning this repository, migrate to `twitter-clone` folder. Then, follow the following steps:
-- Install Appwrite (Installation Steps [here](https://appwrite.io/docs/installation)
+- Install Appwrite (Installation Steps [here](https://appwrite.io/docs/installation))
 - Create Appwrite Project Locally
 - Create Android & iOS Apps in the Dashboard
 - Create Appwrite Database, Storage
@@ -36,7 +36,13 @@ After cloning this repository, migrate to `twitter-clone` folder. Then, follow t
 Then run the following commands to run your app:
 ```bash
   flutter pub get
+```
+  
+```bash
   open -a simulator (to get iOS Simulator)
+```
+
+```bash
   flutter run
 ```
 
@@ -44,3 +50,7 @@ Then run the following commands to run your app:
 **Server**: Appwrite Auth, Appwrite Storage, Appwrite Database, Appwrite Realtime
 
 **Client**: Flutter, Riverpod
+
+## Thanks to all the contributors ❤️
+
+<a href = "https://github.com/aaqilrk/twitter-clone/graphs/contributors"><img src = "https://contrib.rocks/image?repo=aaqilrk/twitter-clone"/></a>
